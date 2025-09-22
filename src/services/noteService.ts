@@ -1,6 +1,5 @@
-import type Note from "../types/note";
 import axios from "axios";
-import type { CreateNoteRequest } from "../types/note";
+import type { CreateNoteRequest, Note } from "../types/note";
 
 
 export default interface FetchNotesResponse  {
@@ -41,10 +40,11 @@ export const createNote = async (newNote: CreateNoteRequest) => {
 }
 
 export const deleteNote = async (noteId: string) => {
-    await axios.delete<Note>(`https://notehub-public.goit.study/api/notes/${noteId}`, {
+    const response = await axios.delete<Note>(`https://notehub-public.goit.study/api/notes/${noteId}`, {
       headers: {
         accept: 'application/json',
         Authorization: `Bearer ${API_KEY}`,
       }
     });
+  return response.data
 }
